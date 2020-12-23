@@ -20,7 +20,16 @@ namespace MyFirstMVCApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            var myHat = new Product { Id = 1, Name = "Mwansa Microsoft Hat", PriceUSD = 10.99m };
+
+            var discount = new Discount { Id = 2, Savings = 0.15m };
+
+            return View(new ProductViewModel
+            {
+                Product = myHat,
+                Discount = discount
+            });
         }
 
         public IActionResult Privacy()
@@ -33,5 +42,13 @@ namespace MyFirstMVCApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
+    }
+
+    public class ProductViewModel
+    {
+        public Product Product { get; set; }
+        public Discount Discount { get; set; }
     }
 }

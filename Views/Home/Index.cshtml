@@ -1,4 +1,8 @@
-﻿@{
+﻿@using MyFirstMVCApp.Controllers
+@using Microsoft.Extensions.Logging
+@model ProductViewModel
+@inject ILogger<HomeController> logger 
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +10,24 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<p>
+    The Product is: @Model.Product.Name
+</p>
+
+<p>
+    Minutes left in the day was @((DateTime.Today.AddDays(1) - DateTime.Now))
+</p>
+
+@if (Model.Discount != null)
+{
+    <blink>Today there is a @Model.Discount.Savings.ToString("0%") sale!</blink>
+}
+
+@{
+    await Html.RenderPartialAsync("Greeting");
+
+    }
+@{
+    logger.LogInformation("Home page was delivered");
+}
